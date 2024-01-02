@@ -13,7 +13,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class HelloController {
 
-    //수정본ㅇ
+    //수정본
     private final CRDTService crdtService;
 
     private final SimpMessagingTemplate messagingTemplate;
