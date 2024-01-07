@@ -13,7 +13,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class HelloController {
 
-    //develop
+    //develop_BE 생성
     private final CRDTService crdtService;
 
     private final SimpMessagingTemplate messagingTemplate;
