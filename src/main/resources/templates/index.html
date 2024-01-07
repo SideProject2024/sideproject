@@ -19,7 +19,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script>
-    const socket = new WebSocket('ws://localhost:8080/websocket-endpoint');
+    const socket = new WebSocket('ws://localhost:8081/websocket-endpoint');
     const stompClient = Stomp.over(socket);
 
     stompClient.connect({}, () => {
