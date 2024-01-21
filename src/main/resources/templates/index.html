@@ -6,52 +6,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <body>
-<h1>CRDT Example</h1>
-<button onclick="incrementCounter('key1')">Increment Counter for key1</button>
-<button onclick="incrementCounter('key2')">Increment Counter for key2</button>
-
-<div>
-    <h2>CRDT Values:</h2>
-    <ul id="crdtValues">
-        <!-- Values will be populated here dynamically -->
-    </ul>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-<script>
-    const socket = new WebSocket('ws://localhost:8081/websocket-endpoint');
-    const stompClient = Stomp.over(socket);
-
-    stompClient.connect({}, () => {
-        stompClient.subscribe('/topic/crdt-updates', (message) => {
-            const data = JSON.parse(message.body);
-            updateCRDTValues(data);
-        });
-    });
-
-    function incrementCounter(key) {
-        fetch('/crdt/increment?key=' + key, { method: 'POST' });
-    }
-
-    function updateCRDTValues(data) {
-        const crdtValues = document.getElementById('crdtValues');
-        crdtValues.innerHTML = '';
-
-        for (const [key, value] of Object.entries(data)) {
-            const listItem = document.createElement('li');
-            listItem.innerText = `${key}: ${value}`;
-            crdtValues.appendChild(listItem);
-        }
-    }
-
-    function getCRDTValues() {
-        fetch('/crdt/get')
-            .then(response => response.json())
-            .then(data => updateCRDTValues(data));
-    }
-
-    // Initial population of CRDT values on page load
-    getCRDTValues();
-</script>
+<h1>demo 테스트</h1>
+[[${response}]]
 </body>
 </html>
