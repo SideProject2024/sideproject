@@ -21,10 +21,12 @@ public class HelloController {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("https://api.themoviedb.org/3/account/20907790/lists?page=1")
+                .url("https://api.themoviedb.org/3/movie/top_rated")
                 .get()
                 .addHeader("accept", "application/json")
                 .addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhYTdkZDg2MGJkYzJmNzAwNDI2NjcwNmQ4ZGJhYzI1NSIsInN1YiI6IjY1OWJlMzI3YmQ1ODhiMjA5OThkNDI3MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TydEZPf9nrIucJSP8WIfQszoJzX9hXJXv2nNTaTIJo4")
+                .addHeader("api_key", "aa7dd860bdc2f7004266706d8dbac255")
+                .addHeader("language", "ko")
                 .build();
 
         Response response = client.newCall(request).execute();
