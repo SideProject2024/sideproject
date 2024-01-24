@@ -8,15 +8,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping("/crdt")
-@RequiredArgsConstructor
 public class HelloController {
 
     //수정본
-    private final CRDTService crdtService;
+    private CRDTService crdtService;
 
-    private final SimpMessagingTemplate messagingTemplate;
+    private SimpMessagingTemplate messagingTemplate;
 
     @GetMapping("/")
     public String index() {

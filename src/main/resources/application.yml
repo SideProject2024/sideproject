@@ -5,6 +5,8 @@ server:
 #logging:
 #  level:
 #    root: debug
+
+// 승일 수정
 spring:
   datasource:
     url:
