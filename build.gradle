@@ -33,6 +33,15 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+
+	// Oauth 의존성 추가
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
 	// lombok 추가
 	implementation 'org.mariadb.jdbc:mariadb-java-client:2.1.2'
 	compileOnly 'org.projectlombok:lombok'
