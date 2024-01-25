@@ -1,14 +1,19 @@
 package com.example.demo.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -29,9 +34,29 @@ public class HelloController {
 
         Response response = client.newCall(request).execute();
 
-        String responseBody = response.body().string();
+        String jsonData = response.body().string();
 
-        model.addAttribute("response", responseBody);
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Map<String,Object>> movie = new ArrayList<>();
+
+        JsonNode rootNode = objectMapper.readTree(jsonData);
+        JsonNode resultsNode = rootNode.get("results");
+
+        if (resultsNode.isArray()) {
+            for (JsonNode movieNode : resultsNode) {
+                String title = movieNode.get("title").asText();
+                String overview = movieNode.get("overview").asText();
+                String poster_path = movieNode.get("poster_path").asText();
+                Map<String,Object> map = new HashMap<>();
+
+                map.put("title",title);
+                map.put("overview",overview);
+                map.put("poster_path",poster_path);
+
+                movie.add(map);
+            }
+        }
+        model.addAttribute("movie", movie);
 
         return "index";
     }

@@ -1,11 +1,27 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>index</title>
+    <title>Movie List</title>
 </head>
 <body>
-<h1>demo 테스트</h1>
-[[${response}]]
+<h1>Top Rated Movies</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="movie : ${movie}">
+        <td th:text="${movie.title}"></td>
+        <td th:text="${movie.overview}"></td>
+        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="">
+    </tr>
+    </tbody>
+</table>
+
+<div th:if="${error}" th:text="${error}"></div>
 </body>
 </html>
