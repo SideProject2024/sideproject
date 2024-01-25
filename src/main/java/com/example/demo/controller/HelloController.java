@@ -51,7 +51,7 @@ public class HelloController {
 
                 map.put("title",title);
                 map.put("overview",overview);
-                map.put("poster_path",poster_path);
+                map.put("poster_path","https://image.tmdb.org/t/p/w500"+poster_path);
 
                 movie.add(map);
             }
