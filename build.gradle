@@ -24,6 +24,8 @@ repositories {
 dependencies {
 
 	implementation group: 'com.squareup.okhttp', name: 'okhttp', version: '2.7.5'
+	implementation 'org.json:json:20210307'
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.1'
 
 	// JPA, Data JPA 추가
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
