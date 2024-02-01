@@ -130,26 +130,22 @@ public class HelloController {
 
         JsonNode result = objectMapper.readTree(jsonData);
 
-        String backdrop_path = String.valueOf(result.get("backdrop_path"));
 
-        backdrop_path = backdrop_path.replaceAll("\"", "");
-
-        JsonNode belongsToCollection = result.get("belongs_to_collection");
-
-        String name = belongsToCollection.get("name").asText();
-        String posterPath = belongsToCollection.get("poster_path").asText();
-        String backdropPath = belongsToCollection.get("backdrop_path").asText();
+        String poster_path = result.get("poster_path").asText();
+        String backdrop_path = result.get("backdrop_path").asText();
+        String title = result.get("title").asText();
+        String tagline = result.get("tagline").asText();
+        String overview = result.get("overview").asText();
 
         Map<String,Object> map = new HashMap<>();
 
-        map.put("name",name);
-        map.put("posterPath",backdropPath);
-        map.put("backdropPath",backdropPath);
-        map.put("backdrop_path",backdrop_path);
+        map.put("poster_path","https://image.tmdb.org/t/p/w500"+poster_path);
+        map.put("backdrop_path","https://image.tmdb.org/t/p/original"+backdrop_path);
+        map.put("title",title);
+        map.put("tagline",tagline);
+        map.put("overview",overview);
 
 
-
-        model.addAttribute("backdrop_path", "https://image.tmdb.org/t/p/w500"+backdrop_path);
         model.addAttribute("movie",map);
         model.addAttribute("result", result);
 

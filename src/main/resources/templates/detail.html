@@ -5,9 +5,12 @@
     <title>Title</title>
 </head>
 <body>
-    <img th:src="${movie.backdrop_path}" style="width: 100%;">
-    영화이름 : [[${backdrop_path}]]
-    [[${backdrop_path}]]
+    <img th:src="${movie.backdrop_path}" alt="">
+    <img th:src="${movie.poster_path}" alt="">
+    <h1 th:text="${movie.title}"></h1>
+    <h2 th:text="${movie.tagline}"></h2>
+    <h3>줄거리</h3>
+    <h4 th:text="${movie.overview}"></h4>
     [[${result}]]
 </body>
 </html>
