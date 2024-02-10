@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -131,6 +132,7 @@ public class HelloController {
     }
 
     @PostMapping("/find/{findString}")
+    @ResponseBody
     public List<Map<String,Object>> find_movie(@PathVariable("findString")String findString) throws IOException {
 
         OkHttpClient client = new OkHttpClient();
@@ -147,10 +149,12 @@ public class HelloController {
         String jsonData = response.body().string();
 
         ObjectMapper objectMapper = new ObjectMapper();
-        List<Map<String,Object>> movie = new ArrayList<>();
 
         JsonNode rootNode = objectMapper.readTree(jsonData);
+
         JsonNode resultsNode = rootNode.get("results");
+
+        List<Map<String,Object>> findList = new ArrayList<>();
 
         if (resultsNode.isArray()) {
             for (JsonNode movieNode : resultsNode) {
@@ -161,10 +165,10 @@ public class HelloController {
                 map.put("title",title);
                 map.put("poster_path","https://image.tmdb.org/t/p/w500"+poster_path);
 
-                movie.add(map);
+                findList.add(map);
             }
         }
 
-        return movie;
+        return findList;
     }
 }
