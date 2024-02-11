@@ -6,7 +6,7 @@
     <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
-<input type="text" id="findString" name="findString" oninput="RealTimeSearch()">
+<input type="text" id="findString" name="findString" oninput="RealTimeSearch()" placeholder="검색어를 입력하세요.">
 
 <table>
     <tbody id="searchList"></tbody>
@@ -16,33 +16,34 @@
         function RealTimeSearch() {
 
             var findString = $('#findString').val();
+            if(findString !== '' && findString !== ' '){
+                $.ajax({
+                    type: "POST",
+                    url: "/find/"+findString,
+                    dataType : 'json',
+                    success: function(data) {
+                        // Clear the existing content in the tbody
+                        $('#searchList').empty();
 
-            $.ajax({
-                type: "POST",
-                url: "/find/"+findString,
-                dataType : 'json',
-                success: function(data) {
-                    // Clear the existing content in the tbody
-                    $('#searchList').empty();
+                        // Iterate through the received data and add rows to the tbody
+                        $.each(data, function (index, movie) {
+                            var title = movie.title;
+                            var posterPath = movie.poster_path;
 
-                    // Iterate through the received data and add rows to the tbody
-                    $.each(data, function (index, movie) {
-                        var title = movie.title;
-                        var posterPath = movie.poster_path;
-
-                        // Create a new row and append it to the tbody
-                        var newRow = '<tr><td><img src="' + posterPath + '" alt="Movie Poster" style="width: 170px;"></td><td>' + title + '</td></tr>';
-                        $('#searchList').append(newRow);
-                    });
-                },
-                error: function(xhr, status, error) {
-                    console.log("Status: " + status);
-                    console.log("Error: " + error);
-                }
-            });
+                            // Create a new row and append it to the tbody
+                            var newRow = '<tr><td><img src="' + posterPath + '" alt="Movie Poster" style="width: 170px;"></td><td>' + title + '</td></tr>';
+                            $('#searchList').append(newRow);
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.log("Status: " + status);
+                        console.log("Error: " + error);
+                    }
+                });
+            }else{
+                $('#searchList').empty();
+            }
         }
-        
-
     </script>
 </body>
 </html>
