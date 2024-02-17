@@ -28,26 +28,15 @@ public class HelloController {
     private final Total_mainService total_MainService;
 
     @GetMapping("/")
-    public String index(Model model) throws IOException {
-        //1a4fdfbb72ca9489d8eb9487d7a4ccff4434ec32
-        OkHttpClient client = new OkHttpClient();
+    public String index(Model model) throws IOException{
 
-        Request request = new Request.Builder()
-                .url("https://api.themoviedb.org/3/movie/top_rated?language=ko-KR&page=1")
-                .get()
-                .addHeader("accept", "application/json")
-                .addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhYTdkZDg2MGJkYzJmNzAwNDI2NjcwNmQ4ZGJhYzI1NSIsInN1YiI6IjY1OWJlMzI3YmQ1ODhiMjA5OThkNDI3MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TydEZPf9nrIucJSP8WIfQszoJzX9hXJXv2nNTaTIJo4")
-                .build();
+        String url = "https://api.themoviedb.org/3/movie/top_rated?language=ko-KR&page=1";
 
-        Response response = client.newCall(request).execute();
+        JsonNode rootNode = total_MainService.CallAPI(url);
 
-        String jsonData = response.body().string();
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        List<Map<String,Object>> movie = new ArrayList<>();
-
-        JsonNode rootNode = objectMapper.readTree(jsonData);
         JsonNode resultsNode = rootNode.get("results");
+
+        List<Map<String,Object>> movie = new ArrayList<>();
 
         if (resultsNode.isArray()) {
             for (JsonNode movieNode : resultsNode) {
@@ -72,25 +61,14 @@ public class HelloController {
 
     @GetMapping("/nowPlaying")
     public String list1 (Model model) throws IOException {
-        //1a4fdfbb72ca9489d8eb9487d7a4ccff4434ec32
-        OkHttpClient client = new OkHttpClient();
 
-        Request request = new Request.Builder()
-                .url("https://api.themoviedb.org/3/movie/now_playing?language=ko-KR&page=1")
-                .get()
-                .addHeader("accept", "application/json")
-                .addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhYTdkZDg2MGJkYzJmNzAwNDI2NjcwNmQ4ZGJhYzI1NSIsInN1YiI6IjY1OWJlMzI3YmQ1ODhiMjA5OThkNDI3MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TydEZPf9nrIucJSP8WIfQszoJzX9hXJXv2nNTaTIJo4")
-                .build();
+        String url = "https://api.themoviedb.org/3/movie/now_playing?language=ko-KR&page=1";
 
-        Response response = client.newCall(request).execute();
+        JsonNode rootNode = total_MainService.CallAPI(url);
 
-        String jsonData = response.body().string();
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        List<Map<String,Object>> movie = new ArrayList<>();
-
-        JsonNode rootNode = objectMapper.readTree(jsonData);
         JsonNode resultsNode = rootNode.get("results");
+
+        List<Map<String,Object>> movie = new ArrayList<>();
 
         if (resultsNode.isArray()) {
             for (JsonNode movieNode : resultsNode) {
@@ -135,22 +113,9 @@ public class HelloController {
     @ResponseBody
     public List<Map<String,Object>> find_movie(@PathVariable("findString")String findString) throws IOException {
 
-        OkHttpClient client = new OkHttpClient();
+        String url = "https://api.themoviedb.org/3/search/movie?query="+findString+"&include_adult=true&language=ko-KR&page=1";
 
-        Request request = new Request.Builder()
-                .url("https://api.themoviedb.org/3/search/movie?query="+findString+"&include_adult=true&language=ko-KR&page=1")
-                .get()
-                .addHeader("accept", "application/json")
-                .addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhYTdkZDg2MGJkYzJmNzAwNDI2NjcwNmQ4ZGJhYzI1NSIsInN1YiI6IjY1OWJlMzI3YmQ1ODhiMjA5OThkNDI3MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TydEZPf9nrIucJSP8WIfQszoJzX9hXJXv2nNTaTIJo4")
-                .build();
-
-        Response response = client.newCall(request).execute();
-
-        String jsonData = response.body().string();
-
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        JsonNode rootNode = objectMapper.readTree(jsonData);
+        JsonNode rootNode = total_MainService.CallAPI(url);
 
         JsonNode resultsNode = rootNode.get("results");
 
@@ -171,6 +136,4 @@ public class HelloController {
 
         return findList;
     }
-
-
 }
