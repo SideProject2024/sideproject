@@ -17,14 +17,12 @@ import java.util.*;
 
 @Service
 public class Total_mainService {
-
-    public Map<String,Object> MovieDetail(String movie_id) throws IOException {
-
+    public JsonNode CallAPI(String url) throws IOException {
         //1a4fdfbb72ca9489d8eb9487d7a4ccff4434ec32
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("https://api.themoviedb.org/3/movie/"+movie_id+"?language=ko-KR")
+                .url(url)
                 .get()
                 .addHeader("accept", "application/json")
                 .addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhYTdkZDg2MGJkYzJmNzAwNDI2NjcwNmQ4ZGJhYzI1NSIsInN1YiI6IjY1OWJlMzI3YmQ1ODhiMjA5OThkNDI3MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TydEZPf9nrIucJSP8WIfQszoJzX9hXJXv2nNTaTIJo4")
@@ -38,6 +36,15 @@ public class Total_mainService {
 
         JsonNode result = objectMapper.readTree(jsonData);
 
+        return result;
+    }
+
+    public Map<String,Object> MovieDetail(String movie_id) throws IOException {
+
+
+        String url = "https://api.themoviedb.org/3/movie/"+movie_id+"?language=ko-KR";
+
+        JsonNode result = CallAPI(url);
 
         String poster_path = result.get("poster_path").asText();
         String backdrop_path = result.get("backdrop_path").asText();
@@ -57,26 +64,14 @@ public class Total_mainService {
     }
 
     public List<Map<String,Object>> MovieCredits(String movie_id) throws IOException {
-        //1a4fdfbb72ca9489d8eb9487d7a4ccff4434ec32
-        OkHttpClient client = new OkHttpClient();
 
-        Request request = new Request.Builder()
-                .url("https://api.themoviedb.org/3/movie/"+movie_id+"/credits?language=ko-KR")
-                .get()
-                .addHeader("accept", "application/json")
-                .addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhYTdkZDg2MGJkYzJmNzAwNDI2NjcwNmQ4ZGJhYzI1NSIsInN1YiI6IjY1OWJlMzI3YmQ1ODhiMjA5OThkNDI3MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TydEZPf9nrIucJSP8WIfQszoJzX9hXJXv2nNTaTIJo4")
-                .build();
+        String url = "https://api.themoviedb.org/3/movie/"+movie_id+"/credits?language=ko-KR";
 
-        Response response = client.newCall(request).execute();
+        JsonNode rootNode = CallAPI(url);
 
-        String jsonData = response.body().string();
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        List<Map<String,Object>> actors = new ArrayList<>();
-
-        JsonNode rootNode = objectMapper.readTree(jsonData);
         JsonNode resultsNode = rootNode.get("cast");
 
+        List<Map<String,Object>> actors = new ArrayList<>();
         if (resultsNode.isArray()) {
             for (JsonNode movieNode : resultsNode) {
                 String name = EntoKo(movieNode.get("name").asText());
