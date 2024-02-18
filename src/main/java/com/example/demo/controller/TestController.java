@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class TestController {
         @GetMapping("/member/{name}")
-        public String findByName(Model model)
             public String findByName(@PathVariable("name") String name) {
             return "Name: " + name;
         }
