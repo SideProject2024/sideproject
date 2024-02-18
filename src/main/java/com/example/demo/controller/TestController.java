@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/test/users")
 @RequiredArgsConstructor
 public class TestController {
-        @GetMapping("/member/{name}")
+        @GetMapping("/members/{name}")
             public String findByName(@PathVariable("name") String name) {
             return "Name: " + name;
         }
 
-        @GetMapping("member/{id}/{name}")
+        @GetMapping("members/{id}/{name}")
         public String findByNameAndId(@PathVariable("id") String id,
                                   @PathVariable("name") String name) {
             return "ID: " + id + ", name: " + name;
