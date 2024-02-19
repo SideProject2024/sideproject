@@ -11,15 +11,16 @@ import java.util.List;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserReReview {
     @Id
     @GeneratedValue
-    @Column(name = "re_review_id")
+    @Column(name = "user_rereview_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "review_id")
+    @ManyToOne
+    @JoinColumn(name = "userreview_id")
     private UserReReview userReReview;
+    private int good;
+    private int bad;
 }

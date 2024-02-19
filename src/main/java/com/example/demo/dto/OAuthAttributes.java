@@ -1,7 +1,6 @@
 package com.example.demo.dto;
 
 import com.example.demo.domain.Role;
-import com.example.demo.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 

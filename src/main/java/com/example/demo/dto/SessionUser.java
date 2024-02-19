@@ -1,6 +1,5 @@
 package com.example.demo.dto;
 
-import com.example.demo.domain.User;
 import lombok.Getter;
 
 import java.io.Serializable;

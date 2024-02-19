@@ -3,13 +3,14 @@ package com.example.demo.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter
+@Getter
+@Table(name = "userreview")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(of = {"id", "usercode"})
 public class UserReview {
 
     @Id @GeneratedValue
@@ -17,15 +18,23 @@ public class UserReview {
     private Long id;
     private String usercode;
 
-    @OneToMany(mappedBy = "userReview")
-    private List<Member> members = new ArrayList<>();
 
-    public UserReview(String usercode) {
-        this.usercode = usercode;
-    }
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "re_review_id")
-    private List<UserReReview> userReReviews = new ArrayList<>();
+    @OneToMany(mappedBy = "userreview")
+    private List<UserReReview> userReReview = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private CommunityReview communityReview;
+
+    private LocalDateTime localDateTime; // 리뷰 작성 시간
+
+    private int good;
+    private int bad;
+
+
+
 
 }
