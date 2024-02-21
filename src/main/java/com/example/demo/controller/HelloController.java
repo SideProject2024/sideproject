@@ -136,4 +136,14 @@ public class HelloController {
 
         return findList;
     }
+    @PostMapping("/test")
+    @ResponseBody
+    public JsonNode test() throws IOException {
+
+        String url = "http://kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=b0eaad9be154d293c5c38849e83705a7&movieNm=파묘";
+
+        JsonNode result = total_MainService.CallAPI(url);
+
+        return result;
+    }
 }
