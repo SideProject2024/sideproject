@@ -9,9 +9,8 @@ import java.util.List;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(of = {"id", "username"})
+@ToString(of = {"id", "name"})
 public class Member {
 
     @Id
@@ -19,25 +18,17 @@ public class Member {
     @Column(name = "member_id")
 
     private Long id;
-    private String username;
+    private String userEmail;
+    private String userName;
+    private String userBirth;
+    private String userNick;
 
-    @JsonIgnore
+    @Embedded
+    private Address address;
+
     @OneToMany(mappedBy = "member")
-    private List<MainContents> mainContents = new ArrayList<>();
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userreview_id")
-    private UserReview userReview;
+    private List<UserReview> userReview = new ArrayList<>();
 
-    public Member(String username, UserReview userReview) {
-        this.username = username;
-        if (userReview != null) {
-            changeuserReview(userReview);
-        }
-    }
 
-    public void changeuserReview(UserReview userReview) {
-        this.userReview = userReview;
-        userReview.getMembers().add(this);
-    }
 }
