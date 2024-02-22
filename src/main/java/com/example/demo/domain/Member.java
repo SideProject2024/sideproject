@@ -7,7 +7,7 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+/*@Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(of = {"id", "name"})
@@ -31,4 +31,4 @@ public class Member {
     private List<UserReview> userReview = new ArrayList<>();
 
 
-}
+}*/

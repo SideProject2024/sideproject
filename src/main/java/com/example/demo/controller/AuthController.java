@@ -1,14 +1,13 @@
 package com.example.demo.controller;
 
 import org.springframework.ui.Model;
-import com.example.demo.dto.SessionUser;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+/*@RestController
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -31,5 +30,5 @@ public class AuthController {
 
         return "home";
     }
-}
+}*/
 

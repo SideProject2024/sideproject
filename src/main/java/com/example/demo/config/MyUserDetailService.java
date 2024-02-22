@@ -1,7 +1,6 @@
 package com.example.demo.config;
 
 import com.example.demo.domain.Member;
-import com.example.demo.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-@Component
+/*@Component
 public class MyUserDetailService implements UserDetailsService {
     private final MemberService memberService;
 
@@ -32,4 +31,4 @@ public class MyUserDetailService implements UserDetailsService {
 //                .build();
         return null;
     }
-}
+}*/

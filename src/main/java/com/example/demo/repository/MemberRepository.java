@@ -1,13 +1,12 @@
 package com.example.demo.repository;
 
-import com.example.demo.domain.Member;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+/*@Repository
 @RequiredArgsConstructor
 public class MemberRepository {
     private final EntityManager em;
@@ -30,4 +29,4 @@ public class MemberRepository {
                 .setParameter("name", name)
                 .getResultList();
     }
-}
+}*/

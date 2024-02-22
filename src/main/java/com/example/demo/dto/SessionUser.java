@@ -4,7 +4,7 @@ import lombok.Getter;
 
 import java.io.Serializable;
 
-@Getter
+/*@Getter
 public class SessionUser implements Serializable {
     private String name;
     private String email;
@@ -17,5 +17,5 @@ public class SessionUser implements Serializable {
         this.picture = user.getPicture();
         this.registrationId = user.getRegistrationId();
     }
-}
+}*/
 

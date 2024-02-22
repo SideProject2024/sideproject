@@ -6,7 +6,7 @@ import lombok.Getter;
 
 import java.util.Map;
 
-@Getter
+/*@Getter
 public class OAuthAttributes {
 
     private Map<String, Object> attributes;
@@ -50,4 +50,4 @@ public class OAuthAttributes {
                 .role(Role.GUEST)
                 .build();
     }
-}
+}*/

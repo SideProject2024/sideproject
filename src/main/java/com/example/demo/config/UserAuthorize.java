@@ -1,6 +1,6 @@
 package com.example.demo.config;
 
-import org.springframework.security.access.prepost.PreAuthorize;
+/*import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -11,4 +11,4 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @PreAuthorize("hasAnyRole('USER')")
 public @interface UserAuthorize {
-}
+}*/

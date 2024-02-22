@@ -22,6 +22,10 @@ public class QUserReReview extends EntityPathBase<UserReReview> {
 
     public static final QUserReReview userReReview1 = new QUserReReview("userReReview1");
 
+    public final NumberPath<Integer> bad = createNumber("bad", Integer.class);
+
+    public final NumberPath<Integer> good = createNumber("good", Integer.class);
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final QUserReReview userReReview;

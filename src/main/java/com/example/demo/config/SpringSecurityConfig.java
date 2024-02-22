@@ -12,7 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
-@Configuration
+/*@Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SpringSecurityConfig {
@@ -42,5 +42,5 @@ public class SpringSecurityConfig {
 
         return http.build();
     }
-}
+}*/
 
