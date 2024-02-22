@@ -140,7 +140,7 @@ public class HelloController {
     @ResponseBody
     public JsonNode test() throws IOException {
 
-        String url = "http://kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=b0eaad9be154d293c5c38849e83705a7&movieNm=파묘";
+        String url = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json?key=b0eaad9be154d293c5c38849e83705a7&targetDt=20240222";
 
         JsonNode result = total_MainService.CallAPI(url);
 
