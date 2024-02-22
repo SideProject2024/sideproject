@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <img th:src="${movie.backdrop_path}" alt="" style="width: 100%;">
+    <img th:src="${movie.poster_path}" alt="">
+    <h1 th:text="${movie.title}"></h1>
+    <h2 th:text="${movie.tagline}"></h2>
+    <h3>줄거리</h3>
+    <h4 th:text="${movie.overview}"></h4>
+
+    <table th:border="1" style="width: 400px;">
+        <th:block th:each="actor : ${actor_list}">
+            <tr>
+                <td rowspan="2" >
+                    <img th:src="${actor.profile_path}" alt="" style="width: 30%;">
+                </td>
+                <td th:text="${actor.name}">배우명 :</td>
+            </tr>
+            <tr>
+                <td th:text="${actor.character}"></td>
+            </tr>
+        </th:block>
+    </table>
+</body>
+</html>
