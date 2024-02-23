@@ -96,10 +96,11 @@ public class HelloController {
 
         Map<String,Object> movie_detail = total_MainService.MovieDetail(movie_id);
 
-        List<Map<String,Object>> actor_list = total_MainService.MovieCredits(movie_id);
+        //List<Map<String,Object>> actor_list = total_MainService.MovieCredits(movie_id);
 
         model.addAttribute("movie",movie_detail);
-        model.addAttribute("actor_list",actor_list);
+        //model.addAttribute("actor_list",actor_list);
+        model.addAttribute("movie_id",movie_id);
 
         return "detail";
     }

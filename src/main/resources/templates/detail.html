@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <body>
+    <input type="hidden" th:value="${movie_id}" id="movie_id">
     <img th:src="${movie.backdrop_path}" alt="" style="width: 100%;">
     <img th:src="${movie.poster_path}" alt="">
     <h1 th:text="${movie.title}"></h1>
@@ -12,7 +14,11 @@
     <h3>줄거리</h3>
     <h4 th:text="${movie.overview}"></h4>
 
-    <table th:border="1" style="width: 400px;">
+    <button class="keword" type="button">액션쩜</button>
+    <button class="keword" type="button">미친스릴러</button>
+    <button class="keword" type="button">넘야행</button>
+
+    <table th:border="1" style="width: 400px;" id="actortable">
         <th:block th:each="actor : ${actor_list}">
             <tr>
                 <td rowspan="2" >
@@ -26,4 +32,49 @@
         </th:block>
     </table>
 </body>
+<script>
+    $.ajax({
+        type: "POST",
+        url: "/find/"+findString,
+        dataType : 'json',
+        success: function(data) {
+            // Clear the existing content in the tbody
+            $('#searchList').empty();
+
+            // Iterate through the received data and add rows to the tbody
+            $.each(data, function (index, movie) {
+                var title = movie.title;
+                var posterPath = movie.poster_path;
+
+                // Create a new row and append it to the tbody
+                var newRow = '<tr><td><img src="' + posterPath + '" alt="Movie Poster" style="width: 170px;"></td><td>' + title + '</td></tr>';
+                $('#searchList').append(newRow);
+            });
+        },
+        error: function(xhr, status, error) {
+            console.log("Status: " + status);
+            console.log("Error: " + error);
+        }
+    });
+
+    $('.keword').click(function (){
+
+        $.ajax({
+            type: "POST",
+            url: "/kewordInsert",
+            dataType : 'text',
+            data: {
+                movie_id : $('#movie_id').val(),
+                word : $(this).text()
+            },
+            success: function(data) {
+                alert(data);
+            },
+            error: function(xhr, status, error) {
+                console.log("Status: " + status);
+                console.log("Error: " + error);
+            }
+        });
+    });
+</script>
 </html>
