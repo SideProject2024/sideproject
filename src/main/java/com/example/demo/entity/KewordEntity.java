@@ -1,6 +1,6 @@
 package com.example.demo.entity;
 
-import com.example.demo.dto.keword;
+import com.example.demo.dto.Keword;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,26 +9,27 @@ import lombok.NoArgsConstructor;
 @Table(name = "keword")
 @Entity
 @NoArgsConstructor
-public class kewordEntity {
+public class KewordEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int pkid;
 
-    private String movie_id;
+    private String movieid;
 
-    private String member_id;
+    @Column(nullable = true)
+    private String memberid;
 
     private String word;
 
 
-    public static kewordEntity tokewordEntity(keword keword){
+    public static KewordEntity tokewordEntity(Keword keword){
 
-        kewordEntity kewordEntity = new kewordEntity();
+        KewordEntity kewordEntity = new KewordEntity();
 
         kewordEntity.setPkid(keword.getPkid());
-        kewordEntity.setMovie_id(keword.getMovie_id());
-        kewordEntity.setMember_id(keword.getMember_id());
+        kewordEntity.setMovieid(keword.getMovieid());
+        kewordEntity.setMemberid(keword.getMemberid());
         kewordEntity.setWord(keword.getWord());
 
         return kewordEntity;

@@ -19,36 +19,29 @@
     <button class="keword" type="button">넘야행</button>
 
     <table th:border="1" style="width: 400px;" id="actortable">
-        <th:block th:each="actor : ${actor_list}">
-            <tr>
-                <td rowspan="2" >
-                    <img th:src="${actor.profile_path}" alt="" style="width: 30%;">
-                </td>
-                <td th:text="${actor.name}">배우명 :</td>
-            </tr>
-            <tr>
-                <td th:text="${actor.character}"></td>
-            </tr>
-        </th:block>
     </table>
 </body>
 <script>
     $.ajax({
         type: "POST",
-        url: "/find/"+findString,
+        url: "/ActorList",
         dataType : 'json',
+        data: {
+            movie_id : $('#movie_id').val()
+        },
         success: function(data) {
             // Clear the existing content in the tbody
-            $('#searchList').empty();
+            $('#actortable').empty();
 
             // Iterate through the received data and add rows to the tbody
-            $.each(data, function (index, movie) {
-                var title = movie.title;
-                var posterPath = movie.poster_path;
+            $.each(data, function (index, actor) {
+                var actor_name = actor.actor_name;
+                var character = actor.character;
+                var profile_path = actor.profile_path;
 
                 // Create a new row and append it to the tbody
-                var newRow = '<tr><td><img src="' + posterPath + '" alt="Movie Poster" style="width: 170px;"></td><td>' + title + '</td></tr>';
-                $('#searchList').append(newRow);
+                var newRow = $('<tr><td>'+actor_name+'</td><td rowspan="2" ><img src="'+profile_path+'" style="width: 30%;"></td></tr><tr><td>'+character+'</td></tr>');
+                $('#actortable').append(newRow);
             });
         },
         error: function(xhr, status, error) {
@@ -64,11 +57,27 @@
             url: "/kewordInsert",
             dataType : 'text',
             data: {
-                movie_id : $('#movie_id').val(),
+                movieid : $('#movie_id').val(),
                 word : $(this).text()
             },
             success: function(data) {
-                alert(data);
+                $.ajax({
+                    type: "POST",
+                    url: "/listByMovieID",
+                    dataType : 'json',
+                    data: {
+                        movieID : $('#movie_id').val()
+                    },
+                    success: function(data) {
+                        $.each(data, function (index, keword) {
+                            alert(keword.word);
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.log("Status: " + status);
+                        console.log("Error: " + error);
+                    }
+                });
             },
             error: function(xhr, status, error) {
                 console.log("Status: " + status);
