@@ -63,33 +63,6 @@ public class Total_mainService {
         return map;
     }
 
-    public List<Map<String,Object>> MovieCredits(String movie_id) throws IOException {
-
-        String url = "https://api.themoviedb.org/3/movie/"+movie_id+"/credits?language=ko-KR";
-
-        JsonNode rootNode = CallAPI(url);
-
-        JsonNode resultsNode = rootNode.get("cast");
-
-        List<Map<String,Object>> actors = new ArrayList<>();
-        if (resultsNode.isArray()) {
-            for (JsonNode movieNode : resultsNode) {
-                String name = EntoKo(movieNode.get("name").asText());
-                String character = EntoKo(movieNode.get("character").asText());
-                String profile_path = movieNode.get("profile_path").asText();
-                Map<String,Object> map = new HashMap<>();
-
-                map.put("name",name);
-                map.put("character",character);
-                map.put("profile_path","https://image.tmdb.org/t/p/w500"+profile_path);
-
-                actors.add(map);
-            }
-        }
-
-        return actors;
-    }
-
     public String EntoKo(String text){
         String clientId = "h_WrQMXqqQ3vNQvmdOCr";//애플리케이션 클라이언트 아이디값";
         String clientSecret = "gS8vECFbLi";//애플리케이션 클라이언트 시크릿값";

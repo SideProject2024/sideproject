@@ -2,12 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.service.Total_mainService;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,16 +18,16 @@ import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
-public class HelloController {
+public class Total_mainController {
 
-    private final Total_mainService total_MainService;
+    private final Total_mainService total_mainService;
 
     @GetMapping("/")
-    public String index(Model model) throws IOException{
+    public String index(Model model) throws IOException {
 
         String url = "https://api.themoviedb.org/3/movie/top_rated?language=ko-KR&page=1";
 
-        JsonNode rootNode = total_MainService.CallAPI(url);
+        JsonNode rootNode = total_mainService.CallAPI(url);
 
         JsonNode resultsNode = rootNode.get("results");
 
@@ -64,7 +59,7 @@ public class HelloController {
 
         String url = "https://api.themoviedb.org/3/movie/now_playing?language=ko-KR&page=1";
 
-        JsonNode rootNode = total_MainService.CallAPI(url);
+        JsonNode rootNode = total_mainService.CallAPI(url);
 
         JsonNode resultsNode = rootNode.get("results");
 
@@ -92,16 +87,42 @@ public class HelloController {
     }
 
     @GetMapping("/content/{movie_id}")
-    public String movieDetail(@PathVariable("movie_id")String movie_id,Model model) throws IOException {
+    public String movieDetail(@PathVariable("movie_id")String movie_id, Model model) throws IOException {
 
-        Map<String,Object> movie_detail = total_MainService.MovieDetail(movie_id);
-
-        List<Map<String,Object>> actor_list = total_MainService.MovieCredits(movie_id);
+        Map<String,Object> movie_detail = total_mainService.MovieDetail(movie_id);
 
         model.addAttribute("movie",movie_detail);
-        model.addAttribute("actor_list",actor_list);
+        model.addAttribute("movie_id",movie_id);
 
         return "detail";
+    }
+
+    @PostMapping("/ActorList")
+    @ResponseBody
+    public List<Map<String,Object>> ActorList(String movie_id) throws IOException {
+
+        String url = "https://api.themoviedb.org/3/movie/"+movie_id+"/credits?language=ko-KR";
+
+        JsonNode rootNode = total_mainService.CallAPI(url);
+
+        JsonNode resultsNode = rootNode.get("cast");
+
+        List<Map<String,Object>> actors = new ArrayList<>();
+        if (resultsNode.isArray()) {
+            for (JsonNode actorNode : resultsNode) {
+                String name = total_mainService.EntoKo(actorNode.get("name").asText());
+                String character = total_mainService.EntoKo(actorNode.get("character").asText());
+                String profile_path = actorNode.get("profile_path").asText();
+                Map<String,Object> map = new HashMap<>();
+
+                map.put("actor_name",name);
+                map.put("character",character);
+                map.put("profile_path","https://image.tmdb.org/t/p/w500"+profile_path);
+
+                actors.add(map);
+            }
+        }
+        return actors;
     }
 
     @GetMapping("/search")
@@ -115,7 +136,7 @@ public class HelloController {
 
         String url = "https://api.themoviedb.org/3/search/movie?query="+findString+"&include_adult=true&language=ko-KR&page=1";
 
-        JsonNode rootNode = total_MainService.CallAPI(url);
+        JsonNode rootNode = total_mainService.CallAPI(url);
 
         JsonNode resultsNode = rootNode.get("results");
 
@@ -136,13 +157,13 @@ public class HelloController {
 
         return findList;
     }
-    @PostMapping("/test")
+    @GetMapping("/test")
     @ResponseBody
     public JsonNode test() throws IOException {
 
         String url = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json?key=b0eaad9be154d293c5c38849e83705a7&targetDt=20240222";
 
-        JsonNode result = total_MainService.CallAPI(url);
+        JsonNode result = total_mainService.CallAPI(url);
 
         return result;
     }
