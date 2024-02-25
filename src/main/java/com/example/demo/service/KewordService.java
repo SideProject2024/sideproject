@@ -37,9 +37,9 @@ public class KewordService {
         return kewordList;
     }
 
-    public List<Map<String,Object>> listcount(){
+    public List<Map<String,Object>> listcount(String movieid){
 
-        List<Map<String, Object>> maps = kewordIRepository.countByMovieId();
+        List<Map<String, Object>> maps = kewordIRepository.countByWordAndMovieId(movieid);
 
         return maps;
     }

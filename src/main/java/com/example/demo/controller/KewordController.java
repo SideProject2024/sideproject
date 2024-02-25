@@ -35,9 +35,9 @@ public class KewordController {
 
     @ResponseBody
     @PostMapping("/countByMovieID")
-    public List<Map<String, Object>> countByMovieID(){
+    public List<Map<String, Object>> countByMovieID(String movieID){
 
-        List<Map<String, Object>> listcount = kewordService.listcount();
+        List<Map<String, Object>> listcount = kewordService.listcount(movieID);
 
         return listcount;
     }

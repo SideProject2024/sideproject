@@ -13,6 +13,6 @@ import java.util.Optional;
 public interface KewordIRepository extends JpaRepository<KewordEntity,Long> {
     List<KewordEntity> findByMovieid(String movie_id);
 
-    @Query("SELECT NEW map(COUNT(word) as count,movieid as movieid) FROM KewordEntity GROUP BY movieid")
-    List<Map<String, Object>> countByMovieId();
+    @Query("SELECT NEW map(COUNT(k.word) as count, k.word as word) FROM KewordEntity k WHERE k.movieid = :movieId GROUP BY k.word")
+    List<Map<String, Object>> countByWordAndMovieId(String movieId);
 }
