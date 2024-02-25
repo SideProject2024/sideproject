@@ -14,6 +14,8 @@
     <h3>줄거리</h3>
     <h4 th:text="${movie.overview}"></h4>
 
+    <table th:border="1" style="width: 400px;" id="kewordtable">
+    </table>
     <button class="keword" type="button">액션쩜</button>
     <button class="keword" type="button">미친스릴러</button>
     <button class="keword" type="button">넘야행</button>
@@ -63,14 +65,20 @@
             success: function(data) {
                 $.ajax({
                     type: "POST",
-                    url: "/listByMovieID",
+                    url: "/countByMovieID",
                     dataType : 'json',
                     data: {
                         movieID : $('#movie_id').val()
                     },
                     success: function(data) {
+                        $('#kewordtable').empty();
                         $.each(data, function (index, keword) {
-                            alert(keword.word);
+                            var count = keword.count;
+                            var word = keword.word;
+
+                            // Create a new row and append it to the tbody
+                            var newRow = $('<tr><td>'+count+'</td><td>'+word+'</td></tr>');
+                            $('#kewordtable').append(newRow);
                         });
                     },
                     error: function(xhr, status, error) {
