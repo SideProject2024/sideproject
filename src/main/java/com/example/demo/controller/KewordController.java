@@ -4,6 +4,7 @@ import com.example.demo.dto.Keword;
 import com.example.demo.service.KewordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -26,6 +27,7 @@ public class KewordController {
 
     @ResponseBody
     @PostMapping("/listByMovieID")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public List<Keword> listByMovieID(String movieID){
 
         List<Keword> kewordList= kewordService.kewordListByMovie_id(movieID);
