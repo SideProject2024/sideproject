@@ -4,6 +4,7 @@ import com.example.demo.dto.Keword;
 import com.example.demo.entity.KewordEntity;
 import com.example.demo.repository.KewordIRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,10 +16,11 @@ import java.util.Map;
 public class KewordService {
 
     private final KewordIRepository kewordIRepository;
+    private final ModelMapper modelMapper;
 
     public void kewordInsert(Keword keword){
 
-        KewordEntity kewordEntity = KewordEntity.tokewordEntity(keword);
+        KewordEntity kewordEntity = modelMapper.map(keword, KewordEntity.class);
 
         kewordIRepository.save(kewordEntity);
     }

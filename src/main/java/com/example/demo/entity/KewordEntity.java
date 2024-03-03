@@ -3,9 +3,10 @@ package com.example.demo.entity;
 import com.example.demo.dto.Keword;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
+@Getter
 @Table(name = "keword")
 @Entity
 @NoArgsConstructor
@@ -23,7 +24,7 @@ public class KewordEntity {
     private String word;
 
 
-    public static KewordEntity tokewordEntity(Keword keword){
+/*    public static KewordEntity tokewordEntity(Keword keword){
 
         KewordEntity kewordEntity = new KewordEntity();
 
@@ -33,5 +34,5 @@ public class KewordEntity {
         kewordEntity.setWord(keword.getWord());
 
         return kewordEntity;
-    }
+    }*/
 }
