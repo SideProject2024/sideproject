@@ -3,12 +3,14 @@ package com.example.demo.entity;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
+@Getter
 @Entity
 @Table(name = "member")
 @NoArgsConstructor
+
 public class MemberEntity {
 
     @Id
