@@ -1,10 +1,9 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.Keword;
+import com.example.demo.dto.KewordDTO;
 import com.example.demo.entity.KewordEntity;
 import com.example.demo.repository.KewordIRepository;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,22 +15,21 @@ import java.util.Map;
 public class KewordService {
 
     private final KewordIRepository kewordIRepository;
-    private final ModelMapper modelMapper;
 
-    public void kewordInsert(Keword keword){
+    public void kewordInsert(KewordDTO keword){
 
-        KewordEntity kewordEntity = modelMapper.map(keword, KewordEntity.class);
+        KewordEntity kewordEntity = KewordEntity.tokeywordEntity(keword);
 
         kewordIRepository.save(kewordEntity);
     }
 
-    public List<Keword> kewordListByMovie_id(String movie_id){
+    public List<KewordDTO> kewordListByMovie_id(String movie_id){
         List<KewordEntity> kewordEntityList = kewordIRepository.findByMovieid(movie_id);
 
-        List<Keword> kewordList = new ArrayList<>();
+        List<KewordDTO> kewordList = new ArrayList<>();
 
         for (KewordEntity kewordEntity : kewordEntityList){
-            Keword keword = Keword.tokeword(kewordEntity);
+            KewordDTO keword = KewordDTO.tokeword(kewordEntity);
 
             kewordList.add(keword);
         }

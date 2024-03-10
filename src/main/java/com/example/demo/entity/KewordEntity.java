@@ -1,15 +1,18 @@
 package com.example.demo.entity;
 
-import com.example.demo.dto.Keword;
+import com.example.demo.dto.KewordDTO;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
+@Builder
 @Table(name = "keword")
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 public class KewordEntity {
 
     @Id
@@ -24,15 +27,13 @@ public class KewordEntity {
     private String word;
 
 
-/*    public static KewordEntity tokewordEntity(Keword keword){
+    public static KewordEntity tokeywordEntity(KewordDTO kewordDTO){
 
-        KewordEntity kewordEntity = new KewordEntity();
-
-        kewordEntity.setPkid(keword.getPkid());
-        kewordEntity.setMovieid(keword.getMovieid());
-        kewordEntity.setMemberid(keword.getMemberid());
-        kewordEntity.setWord(keword.getWord());
-
-        return kewordEntity;
-    }*/
+        return KewordEntity.builder()
+                .pkid(kewordDTO.getPkid())
+                .movieid(kewordDTO.getMovieid())
+                .memberid(kewordDTO.getMemberid())
+                .word(kewordDTO.getWord())
+                .build();
+    }
 }
