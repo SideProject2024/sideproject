@@ -40,7 +40,12 @@ public class WebSecurityConfig {
                 )
                 .formLogin((formLogin) ->
                         formLogin
+                                .loginPage("/login")
+                                .permitAll()
+                                .usernameParameter("email")
+                                .passwordParameter("password")
                                 .defaultSuccessUrl("/", true)
+
                 )
                 .logout((logoutConfig) ->
                         logoutConfig.logoutSuccessUrl("/")

@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.Keword;
+import com.example.demo.dto.KewordDTO;
 import com.example.demo.service.KewordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -18,7 +18,7 @@ public class KewordController {
     private final KewordService kewordService;
     @ResponseBody
     @PostMapping("/kewordInsert")
-    public String kewordInsert(Keword keword){
+    public String kewordInsert(KewordDTO keword){
 
         kewordService.kewordInsert(keword);
 
@@ -28,9 +28,9 @@ public class KewordController {
     @ResponseBody
     @PostMapping("/listByMovieID")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public List<Keword> listByMovieID(String movieID){
+    public List<KewordDTO> listByMovieID(String movieID){
 
-        List<Keword> kewordList= kewordService.kewordListByMovie_id(movieID);
+        List<KewordDTO> kewordList= kewordService.kewordListByMovie_id(movieID);
 
         return kewordList;
     }
