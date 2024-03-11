@@ -15,10 +15,10 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class WebSecurityConfig {
 
- //   @Bean
-//    public BCryptPasswordEncoder passwordEncoder(){
-  //      return new BCryptPasswordEncoder();
-   // }
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     protected SecurityFilterChain config(HttpSecurity http) throws Exception {
@@ -33,7 +33,7 @@ public class WebSecurityConfig {
                 )
                 .authorizeHttpRequests((authorizeRequests) ->
                         authorizeRequests
-                                .requestMatchers("/").permitAll()
+                                .requestMatchers("/","signup").permitAll()
 //                                .requestMatchers("/posts/**", "/api/v1/posts/**").hasRole(Role.USER.name())
 //                                .requestMatchers("/admins/**", "/api/v1/admins/**").hasRole(Role.ADMIN.name())
                                 .anyRequest().authenticated()

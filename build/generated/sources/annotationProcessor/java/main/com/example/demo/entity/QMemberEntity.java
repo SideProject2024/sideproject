@@ -19,17 +19,17 @@ public class QMemberEntity extends EntityPathBase<MemberEntity> {
 
     public static final QMemberEntity memberEntity = new QMemberEntity("memberEntity");
 
-    public final StringPath Email = createString("Email");
+    public final StringPath email = createString("email");
 
     public final NumberPath<Long> memberID = createNumber("memberID", Long.class);
 
-    public final StringPath Name = createString("Name");
+    public final StringPath name = createString("name");
 
-    public final StringPath Password = createString("Password");
+    public final StringPath password = createString("password");
 
-    public final StringPath Profile = createString("Profile");
+    public final StringPath profile = createString("profile");
 
-    public final StringPath Role = createString("Role");
+    public final StringPath role = createString("role");
 
     public QMemberEntity(String variable) {
         super(MemberEntity.class, forVariable(variable));

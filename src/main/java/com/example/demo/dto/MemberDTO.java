@@ -8,20 +8,20 @@ import lombok.Data;
 @Builder
 public class MemberDTO {
     private Long memberID;
-    private String Email;
-    private String Password;
-    private String Name;
-    private String Profile;
-    private String Role;
+    private String email;
+    private String password;
+    private String name;
+    private String profile;
+    private String role;
 
     private static MemberDTO toMemberDTO(MemberEntity memberEntity){
         return MemberDTO.builder()
                 .memberID(memberEntity.getMemberID())
-                .Email(memberEntity.getEmail())
-                .Password(memberEntity.getPassword())
-                .Name(memberEntity.getName())
-                .Profile(memberEntity.getProfile())
-                .Role(memberEntity.getRole())
+                .email(memberEntity.getEmail())
+                .password(memberEntity.getPassword())
+                .name(memberEntity.getName())
+                .profile(memberEntity.getProfile())
+                .role(memberEntity.getRole())
                 .build();
     }
 }
