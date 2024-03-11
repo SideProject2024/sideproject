@@ -23,32 +23,32 @@ public class MemberEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberID;
-    private String Email;
-    private String Password;
-    private String Name;
+    private String email;
+    private String password;
+    private String name;
     @Column(nullable = true)
-    private String Profile;
-    private String Role;
+    private String profile;
+    private String role;
 
-    private static MemberEntity toMemberEntity(MemberDTO memberDTO){
+    public static MemberEntity toMemberEntity(MemberDTO memberDTO){
         return MemberEntity.builder()
                 .memberID(memberDTO.getMemberID())
-                .Email(memberDTO.getEmail())
-                .Password(memberDTO.getPassword())
-                .Name(memberDTO.getName())
-                .Profile(memberDTO.getProfile())
-                .Role(memberDTO.getRole())
+                .email(memberDTO.getEmail())
+                .password(memberDTO.getPassword())
+                .name(memberDTO.getName())
+                .profile(memberDTO.getProfile())
+                .role(memberDTO.getRole())
                 .build();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(this.Role));
+        return Collections.singletonList(new SimpleGrantedAuthority(this.role));
     }
 
     @Override
     public String getUsername() {
-        return this.Email;
+        return this.email;
     }
 
     @Override

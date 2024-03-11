@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -16,14 +17,23 @@ import java.util.Optional;
 public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
+
+
+    public void signup(MemberDTO memberDTO){
+
+        memberDTO.setPassword(passwordEncoder.encode(memberDTO.getPassword()));
+        memberDTO.setRole("user");
+        MemberEntity memberEntity = MemberEntity.toMemberEntity(memberDTO);
+        memberRepository.save(memberEntity);
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         Optional<MemberEntity> Bymember = memberRepository.findByEmail(username);
 
-        MemberEntity memberEntity = Bymember.orElseThrow(() -> new UsernameNotFoundException("등록되지 않은 ID입니다."));
-
-        return memberEntity;
+        return Bymember.orElseThrow(() -> new UsernameNotFoundException("등록되지 않은 ID입니다."));
     }
 }
