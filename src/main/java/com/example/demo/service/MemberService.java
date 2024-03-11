@@ -22,8 +22,8 @@ public class MemberService implements UserDetailsService {
 
         Optional<MemberEntity> Bymember = memberRepository.findByEmail(username);
 
-        Bymember.orElseThrow(() -> new UsernameNotFoundException("등록되지 않은 ID입니다."));
+        MemberEntity memberEntity = Bymember.orElseThrow(() -> new UsernameNotFoundException("등록되지 않은 ID입니다."));
 
-        return ;
+        return memberEntity;
     }
 }
