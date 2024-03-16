@@ -26,7 +26,6 @@ public class MemberController {
         return "redirect:nowPlaying";
     }
 
-
     @GetMapping("/login")
     public String loginF(){
         return "login";
