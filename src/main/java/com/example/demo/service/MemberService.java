@@ -4,6 +4,7 @@ import com.example.demo.dto.MemberDTO;
 import com.example.demo.entity.MemberEntity;
 import com.example.demo.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -34,6 +35,12 @@ public class MemberService implements UserDetailsService {
 
         Optional<MemberEntity> Bymember = memberRepository.findByEmail(username);
 
-        return Bymember.orElseThrow(() -> new UsernameNotFoundException("등록되지 않은 ID입니다."));
+        MemberEntity memberEntity =Bymember.orElseThrow(() -> new UsernameNotFoundException("등록되지 않은 ID입니다."));
+
+        return User.builder()
+                .username(memberEntity.getEmail())
+                .password(memberEntity.getPassword())
+                .roles(memberEntity.getRole())
+                .build();
     }
 }
