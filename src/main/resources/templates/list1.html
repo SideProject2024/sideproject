@@ -18,6 +18,7 @@
     </thead>
     <tbody>
     <tr th:each="movie : ${movie}">
+        <td th:text="${movie.title}"></td>
         <td th:text="${movie.id}"></td>
         <td th:text="${movie.overview}"></td>
         <td><img th:src="${movie.poster_path}" th:onclick="'location.href=\'content/'+ @{${movie.id}} + '\''"></td>
