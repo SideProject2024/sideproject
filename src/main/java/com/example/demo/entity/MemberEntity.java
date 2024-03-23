@@ -40,7 +40,7 @@ public class MemberEntity implements UserDetails {
                 .role(memberDTO.getRole())
                 .build();
     }
-
+//
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(new SimpleGrantedAuthority(this.role));
